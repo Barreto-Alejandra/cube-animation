@@ -1,5 +1,6 @@
 import './style.css'
 import * as THREE from 'three'
+import { Clock } from 'three'
 
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
@@ -31,20 +32,43 @@ const renderer = new THREE.WebGLRenderer({
 renderer.setSize(sizes.width, sizes.height)
 
 
-//time
-let time = Date.now()
+//--time
+// let time = Date.now()
+
+// or use
+
+//--Clock
+const clock = new THREE.Clock()
 
 //animation
 const tick = () => {
 
-    //time
-    const currentTime = Date.now()
-    const deltaTime = currentTime - time
-    time = currentTime
-    console.log(deltaTime)
+    //--time
+    // const currentTime = Date.now()
+    // const deltaTime = currentTime - time
+    // time = currentTime
 
-    //update object
-    mesh.rotation.y += 0.001 * deltaTime
+    //--update object with time
+    // mesh.rotation.y += 0.001 * deltaTime
+
+
+    //--clock
+    const elapsedTime = clock.getElapsedTime()
+    console.log(elapsedTime)
+
+    //--update object with clock
+    // mesh.rotation.y = elapsedTime
+
+    //--other option for object anim (use one or both)
+    // mesh.position.y = Math.sin(elapsedTime)
+    // mesh.position.x = Math.cos(elapsedTime)
+
+    // or with camera
+
+    //--other option for object anim (use one or both)
+     camera.position.y = Math.sin(elapsedTime)
+     camera.position.x = Math.cos(elapsedTime)
+     camera.lookAt(mesh.position)
 
     //renderer
     renderer.render(scene, camera)
